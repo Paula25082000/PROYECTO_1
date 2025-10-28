@@ -308,7 +308,7 @@ def render_footer():
     st.markdown("---")
     st.markdown("""
     <div style='text-align: center; color: gray; padding: 20px;'>
-        <p><strong>Panel BI - Igualdad en Europa (ESS11)</strong></p>
+        <p><strong>Panel ESS11: Igualdad y Sociedad en Europa</strong></p>
         <p>Desarrollado con Streamlit, Pandas y Plotly</p>
         <p>Fuente de datos: European Social Survey Round 11</p>
     </div>
