@@ -119,6 +119,46 @@ def load_custom_css():
         font-weight: 600;
     }
     
+    /* Menú de navegación */
+    .nav-menu {
+        background-color: white;
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin-top: 20px;
+    }
+    
+    .nav-menu h4 {
+        color: #2c3e50;
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #3498db;
+    }
+    
+    .nav-link {
+        display: block;
+        padding: 8px 12px;
+        margin: 5px 0;
+        color: #34495e;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: all 0.3s;
+        font-size: 14px;
+    }
+    
+    .nav-link:hover {
+        background-color: #ecf0f1;
+        color: #3498db;
+        padding-left: 18px;
+    }
+    
+    .nav-link::before {
+        content: "→ ";
+        margin-right: 5px;
+    }
+    
     /* Cajas de información */
     .stAlert {
         border-radius: 5px;
@@ -187,11 +227,25 @@ st.sidebar.markdown("---")
 st.sidebar.metric("Observaciones filtradas", f"{len(df_filtered):,}")
 st.sidebar.metric("% del total", f"{(len(df_filtered)/len(df)*100):.1f}%")
 
+# Menú de navegación
+st.sidebar.markdown("---")
+st.sidebar.markdown("""
+<div class="nav-menu">
+    <h4>📋 Navegación</h4>
+    <a href="#origen-de-los-datos" class="nav-link">Origen de los Datos</a>
+    <a href="#limpieza-de-datos" class="nav-link">Limpieza de Datos</a>
+    <a href="#exploraci-n-de-datos" class="nav-link">Exploración de Datos</a>
+    <a href="#an-lisis-espec-fico-espa-a" class="nav-link">Análisis España</a>
+    <a href="#matriz-de-correlaci-n" class="nav-link">Correlaciones</a>
+    <a href="#conclusiones-clave" class="nav-link">Conclusiones</a>
+</div>
+""", unsafe_allow_html=True)
 
 # ============================================================================
 # SECCIÓN: ORIGEN Y DATOS
 # ============================================================================
 
+st.markdown('<a id="origen-de-los-datos"></a>', unsafe_allow_html=True)
 render_section_header(
     "Origen de los Datos",
     "Información sobre la fuente de datos y el contexto del estudio",
@@ -264,6 +318,7 @@ st.markdown(VAR_DESCRIPTIONS[selected_var_desc])
 
 # Explicación de limpieza de datos
 st.markdown("---")
+st.markdown('<a id="limpieza-de-datos"></a>', unsafe_allow_html=True)
 st.markdown("#### 🧹 Limpieza de Datos Aplicada")
 
 # Diccionario con explicaciones de limpieza por variable (simplificado)
@@ -327,7 +382,7 @@ render_info_box(
 # ============================================================================
 # SECCIÓN: ANÁLISIS EXPLORATORIO (EDA)
 # ============================================================================
-
+st.markdown('<a id="exploraci-n-de-datos"></a>', unsafe_allow_html=True)
 render_section_header(
     "Análisis Exploratorio de Datos (EDA)",
     "Análisis bivariante de variables dependientes con factores sociodemográficos",
@@ -662,6 +717,7 @@ with tab5:
 # ============================================================================
 
 if 'ES' in df_filtered['cntry'].values:
+    st.markdown('<a id="an-lisis-espec-fico-espa-a"></a>', unsafe_allow_html=True)
     render_section_header(
         "Análisis Específico: España",
         "Análisis de actitudes por partido político, ideología y nacionalismo",
@@ -893,6 +949,7 @@ if 'ES' in df_filtered['cntry'].values:
 # SECCIÓN: MATRIZ DE CORRELACIONES
 # ============================================================================
 
+st.markdown('<a id="matriz-de-correlaci-n"></a>', unsafe_allow_html=True)
 render_section_header(
     "Matriz de Correlaciones",
     "Análisis de correlaciones entre todas las variables dependientes (Spearman)",
@@ -991,6 +1048,7 @@ else:
 # SECCIÓN: CONCLUSIONES
 # ============================================================================
 
+st.markdown('<a id="conclusiones-clave"></a>', unsafe_allow_html=True)
 render_section_header(
     "Conclusiones Clave",
     "Hallazgos principales del análisis exploratorio",
