@@ -497,13 +497,15 @@ with tab2:
                 }
             }
             
-            note_text = gender_notes[selected_var]['positive'] if corr > 0 else gender_notes[selected_var]['negative']
-            
-            # Verde para correlación positiva, rojo para negativa
-            if corr > 0:
-                st.success(note_text)  # Verde
-            else:
-                st.error(note_text)  # Rojo
+            # Mostrar nota solo si la correlación es al menos moderada (|r| >= 0.3)
+            if abs(corr) >= 0.3:
+                note_text = gender_notes[selected_var]['positive'] if corr > 0 else gender_notes[selected_var]['negative']
+                
+                # Verde para correlación positiva, rojo para negativa
+                if corr > 0:
+                    st.success(note_text)  # Verde
+                else:
+                    st.error(note_text)  # Rojo
         
         # Gráfico de frecuencias por género
         fig_gender = create_gender_frequency_histogram(
@@ -562,13 +564,15 @@ with tab3:
             }
         }
         
-        note_text = age_notes[selected_var]['positive'] if age_analysis['correlation'] > 0 else age_notes[selected_var]['negative']
-        
-        # Verde para correlación positiva, rojo para negativa
-        if age_analysis['correlation'] > 0:
-            st.success(note_text)  # Verde
-        else:
-            st.error(note_text)  # Rojo
+        # Mostrar nota solo si la correlación es al menos moderada (|r| >= 0.3)
+        if abs(age_analysis['correlation']) >= 0.3:
+            note_text = age_notes[selected_var]['positive'] if age_analysis['correlation'] > 0 else age_notes[selected_var]['negative']
+            
+            # Verde para correlación positiva, rojo para negativa
+            if age_analysis['correlation'] > 0:
+                st.success(note_text)  # Verde
+            else:
+                st.error(note_text)  # Rojo
         
         # Visualización
         fig_age = create_age_trend(
@@ -627,12 +631,14 @@ with tab4:
             }
         }
         
-        note_text = edu_notes[selected_var]['positive'] if edu_analysis['correlation'] > 0 else edu_notes[selected_var]['negative']
-        
-        if edu_analysis['correlation'] > 0:
-            st.success(note_text)  # Verde si correlación positiva (mayor educación = más apoyo)
-        else:
-            st.error(note_text)  # Rojo si correlación negativa
+        # Mostrar nota solo si la correlación es al menos moderada (|r| >= 0.3)
+        if abs(edu_analysis['correlation']) >= 0.3:
+            note_text = edu_notes[selected_var]['positive'] if edu_analysis['correlation'] > 0 else edu_notes[selected_var]['negative']
+            
+            if edu_analysis['correlation'] > 0:
+                st.success(note_text)  # Verde si correlación positiva (mayor educación = más apoyo)
+            else:
+                st.error(note_text)  # Rojo si correlación negativa
         
         # Visualización
         fig_edu = create_education_trend(
@@ -817,13 +823,15 @@ if 'ES' in df_filtered['cntry'].values:
                     }
                 }
                 
-                note_text = ideology_notes[selected_var_spain]['positive'] if corr > 0 else ideology_notes[selected_var_spain]['negative']
-                
-                # Verde para correlación positiva, rojo para negativa
-                if corr > 0:
-                    st.success(note_text)  # Verde
-                else:
-                    st.error(note_text)  # Rojo
+                # Mostrar nota solo si la correlación es al menos moderada (|r| >= 0.3)
+                if abs(corr) >= 0.3:
+                    note_text = ideology_notes[selected_var_spain]['positive'] if corr > 0 else ideology_notes[selected_var_spain]['negative']
+                    
+                    # Verde para correlación positiva, rojo para negativa
+                    if corr > 0:
+                        st.success(note_text)  # Verde
+                    else:
+                        st.error(note_text)  # Rojo
                 
                 # Tabla de clasificación de partidos por ideología
                 with st.expander("📋 Ver clasificación de partidos por ideología"):
@@ -907,13 +915,15 @@ if 'ES' in df_filtered['cntry'].values:
                     }
                 }
                 
-                note_text = nationalism_notes[selected_var_spain]['positive'] if corr > 0 else nationalism_notes[selected_var_spain]['negative']
-                
-                # Verde para correlación positiva, rojo para negativa
-                if corr > 0:
-                    st.success(note_text)  # Verde
-                else:
-                    st.error(note_text)  # Rojo
+                # Mostrar nota solo si la correlación es al menos moderada (|r| >= 0.3)
+                if abs(corr) >= 0.3:
+                    note_text = nationalism_notes[selected_var_spain]['positive'] if corr > 0 else nationalism_notes[selected_var_spain]['negative']
+                    
+                    # Verde para correlación positiva, rojo para negativa
+                    if corr > 0:
+                        st.success(note_text)  # Verde
+                    else:
+                        st.error(note_text)  # Rojo
                 
                 # Tabla de clasificación de partidos por nacionalismo
                 with st.expander("📋 Ver clasificación de partidos por nacionalismo"):
@@ -991,8 +1001,8 @@ if len(available_vars) >= 2:
                 if i < j:  # Solo pares únicos (evitar duplicados y diagonal)
                     corr, pval = calculate_spearman_correlation(df_multivar, var1, var2)
                     
-                    # Solo mostrar correlaciones significativas Y con valor absoluto > 0.1
-                    if pval < 0.05 and abs(corr) > 0.1:
+                    # Solo mostrar correlaciones significativas Y con valor absoluto > 0.2
+                    if pval < 0.05 and abs(corr) > 0.2:
                         # Determinar fuerza
                         abs_corr = abs(corr)
                         if abs_corr < 0.20:
@@ -1037,7 +1047,7 @@ if len(available_vars) >= 2:
                 ✓ **{var1_name}** vs **{var2_name}**: Correlación = **{interp['corr']:.4f}** ({interp['fuerza']}) | p-value: {interp['pval']:.4e} {interp['sig']}
                 """)
         else:
-            st.info("ℹ️ No se encontraron correlaciones significativas mayores a 0.1 entre las variables.")
+            st.info("ℹ️ No se encontraron correlaciones significativas mayores a 0.2 entre las variables.")
     else:
         st.warning("⚠️ Datos insuficientes para calcular correlaciones significativas.")
 else:
