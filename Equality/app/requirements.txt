@@ -1,0 +1,15 @@
+# Requirements para Panel BI - Igualdad en Europa (ESS11)
+
+# Core dependencies
+streamlit>=1.28.0
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Visualization
+plotly>=5.17.0
+
+# Statistical analysis
+scipy>=1.11.0
+
+# Optional: Performance improvements
+pyarrow>=13.0.0  # For faster CSV reading with pandas

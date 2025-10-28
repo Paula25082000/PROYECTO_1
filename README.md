@@ -1,2 +1,0 @@
-# PROYECTO_1
-
